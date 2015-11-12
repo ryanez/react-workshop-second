@@ -245,6 +245,27 @@ into a logical matrix of _[cols][rows]_.
 If you try to `npm run build` you will get an error. We are missing to install the *underscore* library. Lets install it
 `npm install --save-dev underscore`.
 
+## Invite the new components to the party
+
+Now that we have created *Container* and *Square* *ReactJS* components we need to render them.
+
+```Javascript
+'use strict';
+
+var React = require('react'),
+    ReactDOM = require('react-dom'),
+    Container = require('./container');
+
+// designed to be called once document is loaded.
+module.exports = function(elementId) {
+    var element = global.document.getElementById(elementId);
+
+    ReactDOM.render(<Container />, element);
+};
+```
+
+If you component is properly designed you can achieve great things.
+
 At this point we should see something like this:
 
 ![Progress 1](progress-1.JPG)
@@ -255,6 +276,25 @@ of the list, lets insert that empty one at the very beginning rather than into t
 ~~sqares.push(null);~~
 ```Javascript
 squares.splice(0, 0, null);
+```
+
+# Reusable?
+
+We've saying so much that *ReactJS* components are reusable, well, how much they are? lets try.
+
+```Javascript
+'use strict';
+
+var React = require('react'),
+    ReactDOM = require('react-dom'),
+    Container = require('./container');
+
+// designed to be called once document is loaded.
+module.exports = function(elementId) {
+    var element = global.document.getElementById(elementId);
+
+    ReactDOM.render(<div><Container /><Container rows="6" cols="5" /></div>, element);
+};
 ```
 
 # This dance needs some sexy moves
@@ -271,8 +311,8 @@ Lets add some event handling to our *Square* component.
             top: Math.floor(index / cols) * 50 + 'px'
         };
 
-        return (<div onClick={this.props.onSquareClick.bind(this, index, number)}
-            className="square" style={style}>{this.props.number}</div>);
+        return (<div onClick={this.props.onSquareClick.bind(null, index, number)}
+            className="square" style={style}>{number}</div>);
     }
 ```
 

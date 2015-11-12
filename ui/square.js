@@ -26,7 +26,7 @@ module.exports = React.createClass({
             top: Math.floor(index / cols) * 50 + 'px'
         };
 
-        return (<div onClick={this.props.onSquareClick.bind(this, index, number)}
-            className="square" style={style}>{this.props.number}</div>);
+        return (<div onClick={this.props.onSquareClick.bind(null, index, number)}
+            className="square" style={style}>{number}</div>);
     }
 });
